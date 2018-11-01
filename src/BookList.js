@@ -15,7 +15,7 @@ class BookList extends Component {
     this.state = {
       filteredAuthors: this.props.authors,
       filteredBooks: this.props.books,
-      loading: false
+      loading: false,
     };
 
     this.filterBooks = this.filterBooks.bind(this);
@@ -42,10 +42,12 @@ axios
   }
 
   render() {
+    let books = this.state.filteredBooks;
+
       return (
         <div className="books">
         <SearchBar changeHandler={this.filterBooks} />
-        <BookTable books={this.state.filteredBooks} />
+        <BookTable books={books} />
         </div>
 
       );

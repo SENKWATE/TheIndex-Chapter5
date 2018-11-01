@@ -63,6 +63,12 @@ class App extends Component {
               <BookList {...props} books={this.state.books} />
             )}
           />
+          <Route
+            path="/books/:color"
+            render={props => (
+              <BookList {...props} books={this.state.books} />
+            )}
+          />
         </Switch>
       );
     }
