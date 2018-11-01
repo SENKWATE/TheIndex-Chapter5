@@ -6,6 +6,7 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import Loading from "./Loading";
 import AuthorsList from "./AuthorsList";
+import BookList from "./BookList";
 import AuthorDetail from "./AuthorDetail";
 
 const instance = axios.create({
@@ -25,14 +26,20 @@ class App extends Component {
     return instance.get("/api/authors/").then(res => res.data);
   }
 
+  fetchAllBooks() {
+    return instance.get("/api/books/").then(res => res.data);
+  }
   componentDidMount() {
     this.fetchAllAuthors()
       .then(authors =>
         this.setState({
           authors: authors,
-          loading: false
         })
       )
+      .then(() => this.fetchAllBooks())
+      .then(books => this.setState({books:books, loading: false }))
+
+
       .catch(err => console.error(err));
   }
 
@@ -48,6 +55,12 @@ class App extends Component {
             path="/authors/"
             render={props => (
               <AuthorsList {...props} authors={this.state.authors} />
+            )}
+          />
+          <Route
+            path="/books/"
+            render={props => (
+              <BookList {...props} books={this.state.books} />
             )}
           />
         </Switch>
