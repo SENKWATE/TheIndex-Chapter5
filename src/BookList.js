@@ -52,17 +52,23 @@ class BookList extends Component {
     const bookColor = this.props.match.params.color;
     console.log("color: "+ bookColor);
     let books;
+    let s;
     if(!bookColor)
     {
      books = this.state.filteredBooks;
+     s = false;
     }
     else {
      books = this.filterColors(bookColor);
+     s = true;
+
     }
 
 
       return (
+
         <div className="books">
+        {s ? <Link to="/books/" className="btn" style={{borderColor: "black", backgroundColor: "white"}}>All Books</Link> : ""}
         <SearchBar changeHandler={this.filterBooks} />
         <BookTable books={books} />
         </div>
