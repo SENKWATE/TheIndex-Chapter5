@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       authors: [],
-      loading: true
+      loading: true,
     };
   }
 
@@ -58,13 +58,7 @@ class App extends Component {
             )}
           />
           <Route
-            path="/books/"
-            render={props => (
-              <BookList {...props} books={this.state.books} />
-            )}
-          />
-          <Route
-            path="/books/:color"
+            path="/books/:color?"
             render={props => (
               <BookList {...props} books={this.state.books} />
             )}

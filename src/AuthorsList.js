@@ -26,7 +26,7 @@ class AuthorsList extends Component {
 
   render() {
     const authorCards = this.state.filteredAuthors.map(author => (
-      <AuthorCard key={author.first_name + author.last_name} author={author} />
+      <AuthorCard key={author.first_name + author.last_name} author={author} selectauthor={this.props.selectAuthor}/>
     ));
 
     return (

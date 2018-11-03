@@ -19,17 +19,18 @@ class BookList extends Component {
     };
 
     this.filterBooks = this.filterBooks.bind(this);
+    this.filterColors = this.filterColors.bind(this);
   }
 
-componentDidMount() {
-    const books = this.props.match.params.books;
-    this.setState({ loading: true });
-axios
-      .get(`/api/books/`)
-      .then(res => res.data)
-      .then(book => this.setState({ books: books, loading: false }))
-      .catch(err => console.error(err));
-  }
+// componentDidMount() {
+//     const books = this.props.match.params.books;
+//     this.setState({ loading: true });
+// axios
+//       .get(`https://the-index-api.herokuapp.com/api/books/`)
+//       .then(res => res.data)
+//       .then(book => this.setState({ books: books, loading: false }))
+//       .catch(err => console.error(err));
+//   }
 
   filterBooks(query) {
     query = query.toLowerCase();
@@ -38,11 +39,27 @@ axios
         .toLowerCase()
         .includes(query);
     });
-    this.setState({ filteredBooks });
+    this.setState({ filteredBooks, check: false });
   }
 
+  filterColors(color) {
+      return this.state.filteredBooks.filter(book => book.color === color);
+    }
+
+
   render() {
-    let books = this.state.filteredBooks;
+    console.log(this.props.match)
+    const bookColor = this.props.match.params.color;
+    console.log("color: "+ bookColor);
+    let books;
+    if(!bookColor)
+    {
+     books = this.state.filteredBooks;
+    }
+    else {
+     books = this.filterColors(bookColor);
+    }
+
 
       return (
         <div className="books">
